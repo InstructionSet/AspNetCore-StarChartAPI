@@ -22,7 +22,7 @@ namespace StarChart.Controllers
         [HttpGet("{id:int}", Name = "GetById")]
         public IActionResult GetById(int id)
         {
-            var CelestialObject = _context.CelestialObjects.FirstOrDefault(x => x.Id == id);
+            var CelestialObject = _context.CelestialObjects.Find(id);
 
             if (CelestialObject == null)
             {
@@ -31,7 +31,7 @@ namespace StarChart.Controllers
 
             CelestialObject.Satellites = _context.CelestialObjects.Where(x => x.OrbitedObjectId == CelestialObject.Id).ToList();
 
-            return new ObjectResult(CelestialObject);
+            return Ok(CelestialObject);
         }
 
         [HttpGet("{name}")]
@@ -46,9 +46,10 @@ namespace StarChart.Controllers
 
             CelestialObject.Satellites = _context.CelestialObjects.Where(x => x.OrbitedObjectId == CelestialObject.Id).ToList();
 
-            return new ObjectResult(CelestialObject);
+            return Ok(CelestialObject);
         }
 
+        [HttpGet]
         public IActionResult GetAll()
         {
             var CelestialObjects = _context.CelestialObjects.ToList();
@@ -58,7 +59,7 @@ namespace StarChart.Controllers
                 CelestialObject.Satellites = _context.CelestialObjects.Where(x => x.OrbitedObjectId == CelestialObject.Id).ToList();
             }
 
-            return new ObjectResult(CelestialObjects);
+            return Ok(CelestialObjects);
         }
     }
 }
