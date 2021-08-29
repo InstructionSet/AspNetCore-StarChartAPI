@@ -116,7 +116,7 @@ namespace StarChart.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-
+            return NoContent();
         }
     }
 }
